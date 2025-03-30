@@ -15,8 +15,8 @@ router.route('/register')
                 { name: 'coverImage', maxCount: 1 }
             ]
         ),
-        validateFiles,
-        validateUser,  // middleware to validate user
+        validateFiles,  // middleware to validate files
+        validateUser,   // middleware to validate user
         registerUser
     );
 

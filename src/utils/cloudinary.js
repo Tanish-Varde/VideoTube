@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
-import fs from 'fs';
+import fs from 'fs/promises';
+import { ApiError } from './ApiError.js';
 
 
 // configure cloudinary
@@ -14,12 +15,11 @@ const uploadOnCloudinary = async (filePath) => {
     try {
         if (!filePath) return null;
         const response = await cloudinary.uploader.upload(filePath, { resource_type: 'auto' });
-        console.log(`File successfully uploaded to Cloudinary: ${response.url}`);
-        fs.unlinkSync(filePath);
+        await fs.unlink(filePath);
         return response;
     } catch (error) {
         fs.unlinkSync(filePath);
-        return null;
+        throw new ApiError(500, error.message);
     }
 };
 

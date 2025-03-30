@@ -1,10 +1,12 @@
-import dotenv from 'dotenv';
+import 'dotenv/config';
+config({
+    path: './.env'
+});
+
 import { app } from './app.js';
 import { connectMongoDb } from './db/db.js';
+import { config } from 'dotenv';
 
-dotenv.config({
-    path: "./.env"
-});
 
 const port = process.env.PORT || 3000;
 
