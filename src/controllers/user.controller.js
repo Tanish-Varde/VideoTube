@@ -36,14 +36,13 @@ const registerUser = asyncHandler(async (req, res) => {
         coverImage: coverImageUrl?.url || ""
     });
 
-    console.log(user);
-
 
     const createdUser = await User.findById(user._id).select('-password -watchHistory');
 
     if (!createdUser) {
         throw new ApiError(500, 'Something went wrong!');
     };
+
 
     console.log('User registered successfully!');
     res.status(200).json(new ApiResponse(200, createdUser, 'User registered successfully!'));
